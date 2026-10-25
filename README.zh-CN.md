@@ -1,235 +1,168 @@
-<p align="right">
-  <a href="README.md">English</a> · <strong>简体中文</strong>
-</p>
+<div align="center">
 
 # Open Source Launch
 
-**把本地或私有项目转化为可移植、经过隐私审查、容易被发现并完成验证的 GitHub 开源版本。**
+**一个 Agent Skill：把本地或私有项目变成公开 GitHub 仓库——陌生人装得上，他们的 AI Agent 用得来，搜索引擎找得到。**
 
-[![测试](https://github.com/risingjerry/open-source-launch/actions/workflows/test.yml/badge.svg)](https://github.com/risingjerry/open-source-launch/actions/workflows/test.yml)
-[![版本](https://img.shields.io/github/v/release/risingjerry/open-source-launch?display_name=tag)](https://github.com/risingjerry/open-source-launch/releases)
-[![许可证：MIT](https://img.shields.io/badge/License-MIT-18a558.svg)](LICENSE)
+隐私检查、干净环境安装验证、Agent 套件（`AGENTS.md` + 内置 Skill）、能转化的 README、SEO/GEO 元数据、油画风社交预览图，再加推广草稿。支持 Claude Code、Codex 以及任何兼容 `SKILL.md` 的 Agent。
 
-![Open Source Launch 概念流程：本地项目依次经过隐私审查、可移植打包和发布门禁，最终成为公开代码仓库](docs/assets/social-preview.png)
+[![Tests](https://github.com/risingjerry/open-source-launch/actions/workflows/test.yml/badge.svg)](https://github.com/risingjerry/open-source-launch/actions/workflows/test.yml)
+[![Release](https://img.shields.io/github/v/release/risingjerry/open-source-launch?display_name=tag)](https://github.com/risingjerry/open-source-launch/releases)
+[![License: MIT](https://img.shields.io/badge/License-MIT-18a558.svg)](LICENSE)
+[![GitHub stars](https://img.shields.io/github/stars/risingjerry/open-source-launch?style=social)](https://github.com/risingjerry/open-source-launch/stargazers)
 
-> **Beta：**工作流和配套脚本已经过测试，但每次发布仍需针对具体仓库完成隐私、许可证、平台和分发审查。
+[English](README.md) · 简体中文
 
-## 为什么需要它
+![Open Source Launch](docs/social-preview.jpg)
 
-把仓库设为 Public，不等于交付了一个真正的开源产品。精美的 README
-无法修复只能从维护者源码目录运行的安装包，也无法删除 Git 历史里的凭据、
-补上缺失的授权，或证明陌生用户能够完成第一次成功。
+</div>
 
-Open Source Launch 为 Codex 提供一套可重复执行的发布契约：
+## 为什么做这个
 
-```text
-私有/本地项目
-  -> 隐私与知识产权门禁
-  -> 可移植发布物
-  -> 隔离环境首次成功
-  -> README 与发现元数据
-  -> 经授权公开发布
-  -> 可衡量的采用闭环
-```
+把仓库设成公开，不等于发布了一个开源项目。很多"公开"仓库只能在作者自己电脑上跑，提交历史里留着本机路径甚至密钥；越来越多的人会直接对 AI 说"帮我装一下这个"，而这些仓库对 AI 来说根本无从下手。
 
-它包含确定性的公开面审计工具，以及可选的白底 Repository Pulse 图表；
-不会静默发布、合并、改变可见性，也不会把凭据写进文档。
+Open Source Launch 让你的 Agent 只做一件事，追求三个结果：
 
-## 快速开始
+1. **在哪都能跑**——不依赖你电脑上的任何东西，用临时 `HOME` 重新克隆一遍来证明。
+2. **任何 Agent 都能接手**——仓库自带给 Agent 的说明书（`AGENTS.md`、`CLAUDE.md`、内置的 `skills/<name>/SKILL.md`、JSON 输出、安全的默认行为）。
+3. **别人找得到**——描述和标签里有大家会搜的词，FAQ 标题就是大家会问搜索引擎或 AI 的原话，分享链接时还有一张好看的预览图。
 
-### 1. 安装到当前项目
+它按这三个结果来判断项目，而不是套一张固定清单：一个小命令行工具要做的，只是桌面应用的一小部分。
+
+## 安装
 
 ```bash
-DISABLE_TELEMETRY=1 npx skills add risingjerry/open-source-launch \
-  --skill open-source-launch \
-  --agent codex \
-  --yes
+npx skills add risingjerry/open-source-launch
 ```
 
-这条已验证路径会把 Skill 安装到当前项目的
-`.agents/skills/open-source-launch/`。`DISABLE_TELEMETRY=1` 用于关闭安装器 CLI
-的匿名遥测；Open Source Launch 本身不包含遥测。
+也可以把 [`skills/open-source-launch/`](skills/open-source-launch) 复制到 `~/.claude/skills/`（Claude Code）或 `~/.agents/skills/`（Codex 等）。装好后开一个新会话，Agent 才能发现它。
 
-也可以让 Codex 内置 Skill Installer 完成安装：
+## 怎么用
+
+直接对你的 Agent 说：
 
 ```text
-Use $skill-installer to install open-source-launch from
-https://github.com/risingjerry/open-source-launch/tree/main/skills/open-source-launch
+按开源发布标准检查一下这个仓库，先别改任何东西。
 ```
-
-通过任一路径安装后，都要开启一个新的 Codex 轮次，让系统重新发现 Skill。
-
-### 2. 执行只读发布审计
 
 ```text
-使用 open-source-launch 审计这个仓库，不要修改文件或远程状态。
+把这个项目变成公开仓库：做隐私检查，让它在别人电脑上也能跑，加上 Agent 套件，写好 README，然后改成公开。
 ```
-
-预期结果：得到一份区分阻断项、警告、已验证事实和缺失证据的门禁报告。
-静态扫描只是第一道门禁，不能单独证明项目已经适合发布。
-
-### 3. 准备或正式开源
 
 ```text
-为这个项目准备开源 GitHub 发布，但不要真正公开。
+把我们已经公开的仓库按发布标准翻新一遍，再起草一条 X 帖子。
 ```
 
-当全部门禁通过，而且你准备授权远程发布时：
+它会按这个顺序做：
 
-```text
-把这个项目正式开源，完成经过验证的 PR、仓库元数据、Release 和线上回读流程。
-```
-
-## 四种工作模式
-
-| 模式 | 作用 | 远程写入 |
+| 步骤 | Agent 做什么 | 是否硬性拦截 |
 | --- | --- | --- |
-| `audit` | 只读检查发布准备度和缺口 | 永不 |
-| `prepare` | 在隔离分支或 Worktree 中修复可移植性、公开面、文档和发布文件 | 不改变可见性，不发布版本 |
-| `launch` | 完成验证后的正式公开流程 | 仅在明确授权后 |
-| `refresh` | 更新现有公开项目的文档、发现页面、截图、指标或发布材料 | 仅限授权范围 |
+| 1. 隐私检查 | 运行内置审计脚本（可选 Gitleaks），看提交历史、图片和 Agent 说明文件 | **是** |
+| 2. 可移植 | 找出绝对路径和只存在于本机的状态，用干净克隆证明能装 | **是**（必须真能用） |
+| 3. Agent 就绪 | 加 `AGENTS.md`、`CLAUDE.md`、内置 Skill、JSON / 退出码，README 加 Agent 使用段 | 否 |
+| 4. README | 一屏完成转化：结果、演示、安装、第一个结果、FAQ、求 star | 否 |
+| 5. 可被发现 | 描述、约 14 个标签、问句式 FAQ、油画风社交预览图 | 否 |
+| 6. 发布闸门 | 先给你看一张证据表，再改成公开，并读回线上状态核对 | — |
+| 7. 推广包 | 起草帖子，列出 awesome 合集清单和各自的真实投稿规则 | 只写草稿 |
 
-## 它标准化了什么
+发帖、投稿合集、发布软件包、改写提交历史，每一项都要你单独点头——Skill 只起草，从不替你发出去。
 
-### 先安全，后展示
-
-- 当前文件和 Git 历史中的凭据检查；
-- 个人数据、媒体、日志、数据库、内网地址和本机路径检查；
-- 第三方代码、资源来源和许可证门禁；
-- 发现阻断项就停止，报告不会回显匹配到的密钥值。
-
-### 面向陌生用户的可移植性
-
-- 明确运行时、依赖、配置、权限和网络要求；
-- 不暗中依赖维护者的 `$HOME`、Shell Alias、Keychain 或源码目录；
-- 记录全新克隆、隔离 HOME、正式安装、首次结果和更新/恢复证据。
-
-### 公共仓库产品化
-
-- 与实际维护模式相符的 LICENSE、SECURITY、CONTRIBUTING、CI、Release 和支持入口；
-- 有证据支撑的主 README，以及内容同步、表达自然、可以独立阅读的多语言版本；
-- 聚焦的仓库描述、Topics、Social Preview、自然搜索语言和稳定引用路径；
-- 放在 README 靠后位置的可选隐私安全仓库活动图。
-
-### 发布后的采用闭环
-
-- 根据渠道分别起草发布内容，但不会自动发帖；
-- 从有效发现、首次成功到留存的完整衡量；
-- 明确区分 `observed`、`inferred` 和 `missing_evidence`。
-
-## 发布门禁模型
-
-```mermaid
-flowchart LR
-    A["公开意图"] --> B["隐私与知识产权"]
-    B --> C["可移植性"]
-    C --> D["分发"]
-    D --> E["首次成功"]
-    E --> F["信任与文档"]
-    F --> G["发现"]
-    G --> H["经授权发布"]
-    H --> I["采用闭环"]
-```
-
-每一项重要公开声明都必须属于：
-
-- **verified**：已在目标公开发布物或线上仓库中观察到；
-- **planned**：明确标记为计划；
-- **missing evidence**：证据不足，暂时不能宣传。
-
-## 确定性审计工具
-
-审计器只依赖 Python 标准库，并只报告位置，不回显匹配到的密钥：
-
-```bash
-python3 skills/open-source-launch/scripts/audit_open_source.py . --json
-```
-
-本地安装 Gitleaks 后，可以执行正式发布门禁：
-
-```bash
-python3 skills/open-source-launch/scripts/audit_open_source.py . \
-  --run-gitleaks --strict
-```
-
-它检查仓库基础文件、疑似凭据、被跟踪的环境文件、私有或本机引用、
-高风险数据文件、外部软链接、运行时声明和 Git 状态。启发式结果可能需要
-人工复核；静态扫描通过不等于历史、媒体/IP、隔离安装、CI 和线上设置已验证。
-
-## Repository Pulse
-
-使用具有仓库 Owner 权限且已经认证的 `gh` 安装白底手绘风图表：
-
-```bash
-python3 skills/open-source-launch/scripts/install_repository_pulse.py \
-  /path/to/repository \
-  --repository OWNER/REPOSITORY \
-  --collect-traffic
-```
-
-安装器只写入三个组件文件并打印 README 片段，不会编辑 README、提交、推送、
-创建分支或改变可见性。GitHub Traffic 仅保存带日期的 14 天滚动聚合快照；
-公开 README URL 永远不携带长期 Token。
-
-## 要求与边界
-
-- 为 Codex Skills 设计并验证；其他兼容 `SKILL.md` 的 Agent 可能可用，但不属于已验证支持声明。
-- 只有项目级标准安装路径需要带 `npx` 的 Node.js；Skill 运行时不依赖 Node.js。
-- 只有确定性辅助脚本需要 Python 3.10+。
-- 需要 `git` 才能提供被跟踪文件和工作区状态证据。
-- `gh`、仓库 Owner 权限和 Gitleaks 都是可选项，仅用于对应的 GitHub 或历史密钥门禁。
-- 不包含遥测。
-- 远程写入始终遵守所请求的模式和授权边界。
-- 当前工作流面向 GitHub；其他代码托管平台需要适配。
-
-## 仓库结构
+## 里面有什么
 
 ```text
 skills/open-source-launch/
-├── SKILL.md
-├── agents/openai.yaml
+├── SKILL.md                         # 工作流程
+├── agents/openai.yaml               # Codex 展示信息
 ├── scripts/
-│   ├── audit_open_source.py
-│   └── install_repository_pulse.py
+│   ├── audit_open_source.py         # 隐私 / 打包 / Agent 套件审计
+│   ├── social_preview.py            # 1280×640 油画风社交预览图生成
+│   └── install_repository_pulse.py  # 可选的仓库数据图表
 ├── references/
-└── assets/repository-pulse/
+│   ├── agent-ready.md               # 怎么写 AGENTS.md 和内置 Skill
+│   ├── portability-contract.md
+│   ├── discovery-contract.md        # SEO / GEO / 社交预览
+│   ├── adoption-contract.md         # 推广渠道
+│   ├── repository-pulse.md
+│   └── owner-defaults.example.md    # 复制成 owner-defaults.md，写你自己的风格
+└── tests/
 ```
 
-Skill 本身完整保存在 `skills/open-source-launch/`；面向人的仓库文档和社区文件
-放在 Skill 包之外。
+**你自己的默认设置**：把 `references/owner-defaults.example.md` 复制成 `owner-defaults.md`，填上你的 GitHub 账号、提交身份、视觉风格和推广规则。Skill 会先读它。这份文件不要放进任何公开副本。
 
-## 开发与验证
+### 审计脚本
+
+只用 Python 标准库，只报告位置，从不输出匹配到的密钥：
+
+```bash
+python3 skills/open-source-launch/scripts/audit_open_source.py . --json
+python3 skills/open-source-launch/scripts/audit_open_source.py . --run-gitleaks --strict
+```
+
+它检查基础打包文件、像密钥的内容、被提交的环境变量文件、本机专属引用、有风险的产物、指向仓库外的符号链接、运行时声明、Git 状态，以及有没有 `AGENTS.md` / `CLAUDE.md`。扫描干净只是第一道关，不代表"可以发布"。
+
+### 社交预览图生成
+
+```bash
+python3 skills/open-source-launch/scripts/social_preview.py \
+  --background bg.png --icon icon.svg --name "Product|Agent CLI" \
+  --out docs/social-preview.jpg
+```
+
+先用任意生图模型生成一张没有文字的油画背景（提示词在 `owner-defaults.example.md`），脚本会把白色图标和名字放在画面中间的正方形里，聊天软件把预览裁成正方形时也能完整显示。需要 Google Chrome 或 Chromium。
+
+## 运行要求
+
+- 能加载 `SKILL.md` 的 Agent（Claude Code、Codex、Cursor 等）。
+- 辅助脚本需要 Python 3.10+ 和 `git`。
+- 可选：`gh`（读写 GitHub）、Gitleaks（扫描历史）、Chrome（社交预览图）、Node.js（`npx skills add`）。
+- 不收集任何数据。
+
+## 常见问题
+
+### 怎么安全地把 GitHub 仓库改成公开？
+
+先做隐私检查：内置审计脚本，再加上人工过一遍 `git log -p`、截图和 Agent 说明文件。如果历史里有私人信息，Skill 会停下来问你：是改写历史，还是新建一个只有一次提交的公开仓库。它绝不会悄悄改写。
+
+### 怎么让 Claude Code 或 Codex 会用我的仓库？
+
+放一个 `AGENTS.md`（怎么装、怎么测、怎么调用、什么不能做），一个只有一行 `@AGENTS.md` 的 `CLAUDE.md`，再加一个内置的 `skills/<name>/SKILL.md`。Skill 会帮你写好；写法见 [`agent-ready.md`](skills/open-source-launch/references/agent-ready.md)。
+
+### 怎么让搜索引擎和 AI 搜到我的 GitHub 项目？
+
+仓库名和描述用大家真会搜的词，加上聚焦的标签，FAQ 标题写成真实的问题，再设置社交预览图。详见 [`discovery-contract.md`](skills/open-source-launch/references/discovery-contract.md)。
+
+### 它会不经同意就发布东西吗？
+
+你说了"变成公开仓库"，就包括改公开这一步，除非你要求先过目。发帖、投稿合集、发布软件包、改写历史都只起草。
+
+### 只能在 macOS 上跑的应用也能用吗？
+
+能。它不会假装跨平台：平台要求会写在 README 第一屏。
+
+## 卸载
+
+```bash
+npx skills remove open-source-launch
+```
+
+或者直接删掉 skills 目录里的 `open-source-launch` 文件夹。
+
+## 开发
 
 ```bash
 python3 -m unittest discover -s skills/open-source-launch/tests -v
 python3 -m compileall -q skills/open-source-launch
+python3 skills/open-source-launch/scripts/audit_open_source.py . --strict
 ```
 
-发布前还要执行 `--run-gitleaks --strict`，从临时 Codex Home 验证真实安装路径，
-并回读线上仓库和 Release 状态。
+见 [CONTRIBUTING.md](CONTRIBUTING.md)。安全问题请走[私密漏洞报告](https://github.com/risingjerry/open-source-launch/security/advisories/new)，不要开公开 issue。MIT 许可。
 
-## 参考契约
+## 仓库动态
 
-- [准备度与发布门禁](skills/open-source-launch/references/readiness-contract.md)
-- [陌生用户优先的可移植性](skills/open-source-launch/references/portability-contract.md)
-- [README 转化契约](skills/open-source-launch/references/readme-contract.md)
-- [GitHub 发现、SEO 与 GEO](skills/open-source-launch/references/discovery-contract.md)
-- [Repository Pulse](skills/open-source-launch/references/repository-pulse.md)
-- [开源采用闭环](skills/open-source-launch/references/adoption-contract.md)
+[![Repository Pulse for risingjerry/open-source-launch](https://raw.githubusercontent.com/risingjerry/open-source-launch/metrics/repository-metrics.svg)](https://github.com/risingjerry/open-source-launch)
 
-## 支持与问题反馈
+---
 
-使用问题或可复现的非敏感故障，请通过
-[GitHub Issues](https://github.com/risingjerry/open-source-launch/issues/new/choose)
-提交，并使用合成示例。任何可能暴露凭据、私有仓库、个人数据或漏洞利用方式的
-内容，都必须使用私密漏洞报告。
+如果它帮你把项目发出去了，点个 ⭐ 能让更多人找到它。
 
-## 仓库活动
-
-[![risingjerry/open-source-launch Repository Pulse](https://raw.githubusercontent.com/risingjerry/open-source-launch/metrics/repository-metrics.svg)](https://github.com/risingjerry/open-source-launch)
-
-## 贡献、安全与许可证
-
-- 提交 PR 前请阅读 [CONTRIBUTING.md](CONTRIBUTING.md)。
-- 请通过 [GitHub 私密漏洞报告](https://github.com/risingjerry/open-source-launch/security/advisories/new) 报告漏洞，不要公开创建 Issue。
-- 项目采用 [MIT License](LICENSE) 开源。
+[![Star History Chart](https://api.star-history.com/svg?repos=risingjerry/open-source-launch&type=Date)](https://star-history.com/#risingjerry/open-source-launch&Date)

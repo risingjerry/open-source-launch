@@ -1,246 +1,204 @@
-<p align="right">
-  <strong>English</strong> · <a href="README.zh-CN.md">简体中文</a>
-</p>
+<div align="center">
 
 # Open Source Launch
 
-**Turn a local or private project into a portable, privacy-reviewed, discoverable, and verified public GitHub release.**
+**An Agent Skill that turns a local or private project into a public GitHub repo strangers can install, their AI agents can use, and search engines can find.**
+
+Privacy sweep, clean-clone install proof, an agent kit (`AGENTS.md` + bundled Skill), a README that converts, SEO/GEO metadata, a painterly social preview, and launch drafts — for Claude Code, Codex, and any `SKILL.md`-compatible agent.
 
 [![Tests](https://github.com/risingjerry/open-source-launch/actions/workflows/test.yml/badge.svg)](https://github.com/risingjerry/open-source-launch/actions/workflows/test.yml)
 [![Release](https://img.shields.io/github/v/release/risingjerry/open-source-launch?display_name=tag)](https://github.com/risingjerry/open-source-launch/releases)
 [![License: MIT](https://img.shields.io/badge/License-MIT-18a558.svg)](LICENSE)
+[![GitHub stars](https://img.shields.io/github/stars/risingjerry/open-source-launch?style=social)](https://github.com/risingjerry/open-source-launch/stargazers)
 
-![Conceptual Open Source Launch workflow: a local project passes through privacy review, portable packaging, and a verification gate before becoming a public repository](docs/assets/social-preview.png)
+English · [简体中文](README.zh-CN.md)
 
-> **Beta:** the workflow and bundled scripts are tested, but launch decisions still require repository-specific privacy, licensing, platform, and distribution review.
+![Open Source Launch](docs/social-preview.jpg)
 
-## Why this exists
+</div>
 
-Making a repository public is not the same as shipping an open-source product.
-A polished README cannot fix a package that only runs from the maintainer's
-checkout, remove a credential from Git history, grant missing reuse rights, or
-prove that a stranger can reach first value.
+## Why
 
-Open Source Launch gives Codex a repeatable release contract:
+Making a repo public is not the same as shipping an open-source project. Most
+"public" repos only run on the author's machine, leak a path or a token in
+history, and are invisible to the AI agents that more and more people now ask
+to "install this for me".
 
-```text
-private/local project
-  -> privacy and IP gate
-  -> portable artifact
-  -> clean-room first success
-  -> conversion README and discovery metadata
-  -> authorized public release
-  -> measured adoption loop
-```
+Open Source Launch gives your agent one job with three outcomes:
 
-It includes deterministic helpers for public-surface auditing and an optional
-white-background Repository Pulse chart. It does **not** silently publish,
-merge, change visibility, or place credentials in documentation.
+1. **It runs anywhere** — no hidden dependency on your machine, proven by a
+   fresh clone in a temporary `HOME`.
+2. **Any agent can pick it up** — the repo ships its own agent manual
+   (`AGENTS.md`, `CLAUDE.md`, a bundled `skills/<name>/SKILL.md`, JSON output,
+   safe defaults).
+3. **People can find it** — keyword-rich description and topics, FAQ phrased as
+   the questions people type or ask an AI, and a social preview that looks good
+   when the link is shared.
 
-## Quick start
+It judges the project against those outcomes, not a fixed checklist: a small
+CLI gets a fraction of what a desktop app needs.
 
-### 1. Install project-locally
+## Install
 
 ```bash
-DISABLE_TELEMETRY=1 npx skills add risingjerry/open-source-launch \
-  --skill open-source-launch \
-  --agent codex \
-  --yes
+npx skills add risingjerry/open-source-launch
 ```
 
-This verified route installs the Skill into the current project's
-`.agents/skills/open-source-launch/` directory. `DISABLE_TELEMETRY=1` opts out
-of the installer CLI's anonymous telemetry; Open Source Launch itself has no
-telemetry.
+Or copy [`skills/open-source-launch/`](skills/open-source-launch) into
+`~/.claude/skills/` (Claude Code) or `~/.agents/skills/` (Codex and others).
+Start a new session so the agent discovers it.
 
-Alternatively, ask Codex's built-in Skill Installer:
+## Use it
+
+Just ask your agent:
 
 ```text
-Use $skill-installer to install open-source-launch from
-https://github.com/risingjerry/open-source-launch/tree/main/skills/open-source-launch
+Audit this repo for an open-source launch. Don't change anything.
 ```
-
-Start a new Codex turn after either route so the Skill can be discovered.
-
-### 2. Run a read-only launch audit
 
 ```text
-Audit this repository with open-source-launch. Do not modify files or remote state.
+Make this project a public repo: privacy check, make it run on any machine,
+add the agent kit, write the README, then flip it public.
 ```
-
-Expected result: a gate report separating blockers, warnings, verified claims,
-and missing evidence. Static scanning is only the first gate; it never labels a
-project launch-ready by itself.
-
-### 3. Prepare or launch
 
 ```text
-Prepare this project for an open-source GitHub launch, but do not publish it.
+Refresh our already-public repo to the launch standard and draft the X post.
 ```
 
-When every gate is clean and you intend to authorize remote publication:
+What happens, in order:
 
-```text
-Launch this project as open source. Complete the verified PR, repository metadata,
-release, and live readback path.
-```
-
-## Four operating modes
-
-| Mode | Purpose | Remote writes |
+| Step | What the agent does | Hard blocker? |
 | --- | --- | --- |
-| `audit` | Read-only readiness and gap report | Never |
-| `prepare` | Fix portability, public surface, docs, and release assets in an isolated branch/worktree | No visibility or release changes |
-| `launch` | Complete the verified publication path | Only with explicit authorization |
-| `refresh` | Update an existing public repository's docs, discovery surfaces, screenshots, metrics, or release material | Authorized scope only |
+| 1. Privacy sweep | Runs the bundled auditor (+ optional Gitleaks), reviews history, media and agent files | **Yes** |
+| 2. Portability | Hunts absolute paths and machine-only state, proves install from a clean clone | **Yes** (it must work) |
+| 3. Agent-ready | Adds `AGENTS.md`, `CLAUDE.md`, a bundled Skill, JSON / exit codes, an agent section in the README | No |
+| 4. README | One-screen conversion page: outcome, demo, install, first result, FAQ, star ask | No |
+| 5. Findable | Description, ~14 topics, GEO-style FAQ, painterly social preview | No |
+| 6. Ship gate | Shows you an evidence table, then flips visibility and reads back the live repo | — |
+| 7. Launch kit | Drafts posts and an awesome-list plan with each list's real rules | Drafts only |
 
-## What it standardizes
+Posting, list submissions, package publishing and history rewrites each need
+your separate go-ahead — the Skill drafts them, it never sends them.
 
-### Safety before presentation
-
-- current-tree and Git-history credential review;
-- personal data, media, logs, databases, private hosts, and machine-path review;
-- third-party code, asset provenance, and license gates;
-- fail-closed publication decisions with redacted findings.
-
-### Stranger-first portability
-
-- declared runtimes, dependencies, configuration, permissions, and network needs;
-- no hidden reliance on the maintainer's `$HOME`, shell aliases, keychain, or checkout;
-- clean clone/archive, isolated HOME, canonical install, first result, and recovery/update evidence.
-
-### Public repository productization
-
-- LICENSE, SECURITY, CONTRIBUTING, CI, releases, and support routes that match the real maintenance model;
-- evidence-backed canonical README plus synchronized, natural translations that read as native product pages;
-- focused GitHub description, topics, social preview, natural search language, and stable citation routes;
-- optional privacy-safe repository activity chart near the end of the README.
-
-### Adoption after publication
-
-- channel-specific launch drafts without automatic posting;
-- measurement from qualified discovery through first success and retention;
-- explicit separation of observed, inferred, and missing evidence.
-
-## Gate model
-
-```mermaid
-flowchart LR
-    A["Public intent"] --> B["Privacy and IP"]
-    B --> C["Portability"]
-    C --> D["Distribution"]
-    D --> E["First success"]
-    E --> F["Trust and documentation"]
-    F --> G["Discovery"]
-    G --> H["Authorized publication"]
-    H --> I["Adoption loop"]
-```
-
-Every consequential public claim is classified as:
-
-- **verified** — observed in the intended public artifact or live repository;
-- **planned** — clearly labeled roadmap work;
-- **missing evidence** — not safe to advertise yet.
-
-## Deterministic audit
-
-The bundled auditor uses the Python standard library and reports finding
-locations without echoing matched secret values:
-
-```bash
-python3 skills/open-source-launch/scripts/audit_open_source.py . --json
-```
-
-For a local release gate with Gitleaks installed:
-
-```bash
-python3 skills/open-source-launch/scripts/audit_open_source.py . \
-  --run-gitleaks --strict
-```
-
-It checks repository-package basics, credential-shaped content, tracked
-environment files, private/machine-specific references, risky artifacts,
-external symlinks, runtime declarations, and Git state. Heuristics can require
-human review; a clean report does not replace history, media/IP, clean-install,
-CI, or live-settings verification.
-
-## Repository Pulse
-
-Install the optional white sketch-style chart after authenticating `gh` as the
-repository owner:
-
-```bash
-python3 skills/open-source-launch/scripts/install_repository_pulse.py \
-  /path/to/repository \
-  --repository OWNER/REPOSITORY \
-  --collect-traffic
-```
-
-The installer writes three component files and prints the README snippet. It
-does not edit README, commit, push, create a branch, or change visibility.
-GitHub Traffic data is stored only as a dated aggregate rolling 14-day snapshot;
-the public README URL never contains a long-lived token.
-
-## Requirements and boundaries
-
-- Designed and verified for Codex Skills; other `SKILL.md`-compatible agents may work but are not part of the verified support claim.
-- Node.js with `npx` is required only for the canonical project-local install route; the Skill runtime does not depend on Node.js.
-- Python 3.10+ is required only for the deterministic helper scripts.
-- `git` is required for tracked-file and working-tree evidence.
-- `gh`, authenticated owner access, and Gitleaks are optional and used only for the corresponding GitHub/secret-history gates.
-- No telemetry is included.
-- Remote writes always follow the requested mode and authorization boundary.
-- The workflow targets GitHub repositories; other forges require adaptation.
-
-## Repository layout
+## What's inside
 
 ```text
 skills/open-source-launch/
-├── SKILL.md
-├── agents/openai.yaml
+├── SKILL.md                         # the workflow
+├── agents/openai.yaml               # Codex display metadata
 ├── scripts/
-│   ├── audit_open_source.py
-│   └── install_repository_pulse.py
+│   ├── audit_open_source.py         # privacy / package / agent-kit auditor
+│   ├── social_preview.py            # 1280×640 painterly social preview renderer
+│   └── install_repository_pulse.py  # optional repo metrics chart
 ├── references/
-└── assets/repository-pulse/
+│   ├── agent-ready.md               # how to write AGENTS.md and a bundled Skill
+│   ├── portability-contract.md
+│   ├── discovery-contract.md        # SEO / GEO / social preview
+│   ├── adoption-contract.md         # launch channels
+│   ├── repository-pulse.md
+│   └── owner-defaults.example.md    # copy to owner-defaults.md for your house style
+└── tests/
 ```
 
-The Skill stays self-contained under `skills/open-source-launch/`; repository
-documentation and community files remain outside the Skill package.
+**Your own defaults.** Copy `references/owner-defaults.example.md` to
+`owner-defaults.md` and fill in your GitHub account, commit identity, house
+style and promotion rules. The Skill reads it first. Keep it out of any public
+copy.
+
+### The auditor
+
+Python standard library only. It reports locations, never secret values:
+
+```bash
+python3 skills/open-source-launch/scripts/audit_open_source.py . --json
+python3 skills/open-source-launch/scripts/audit_open_source.py . --run-gitleaks --strict
+```
+
+It checks package basics, credential-shaped content, tracked env files,
+machine-specific references, risky artifacts, external symlinks, runtime
+declarations, Git state, and whether `AGENTS.md` / `CLAUDE.md` exist. A clean
+scan is the first gate, not "launch-ready".
+
+### The social preview renderer
+
+```bash
+python3 skills/open-source-launch/scripts/social_preview.py \
+  --background bg.png --icon icon.svg --name "Product|Agent CLI" \
+  --out docs/social-preview.jpg
+```
+
+Generate a text-free oil-painting background with any image model (prompt in
+`owner-defaults.example.md`); the script lays a white icon and wordmark inside
+the central square so chat apps that crop to a square still show it. Needs
+Google Chrome or Chromium.
+
+## Requirements
+
+- An agent that loads `SKILL.md` Skills (Claude Code, Codex, Cursor and others).
+- Python 3.10+ for the helper scripts; `git`.
+- Optional: `gh` (GitHub reads/writes), Gitleaks (history scan), Chrome
+  (social preview), Node.js (`npx skills add`).
+- No telemetry.
+
+## FAQ
+
+### How do I make a GitHub repo public safely?
+
+Run the privacy sweep first: the bundled auditor plus a look through
+`git log -p`, screenshots and agent instruction files. If anything private is
+in history, the Skill stops and asks whether to rewrite history or publish a
+fresh single-commit repo. It never rewrites silently.
+
+### How do I make my repo usable by Claude Code or Codex?
+
+Ship an `AGENTS.md` (install, test, call, never-do), a one-line `CLAUDE.md`
+with `@AGENTS.md`, and a bundled `skills/<name>/SKILL.md`. The Skill writes
+these for you; [`agent-ready.md`](skills/open-source-launch/references/agent-ready.md)
+explains what goes in them.
+
+### How do I get my GitHub project found by search engines and AI answers?
+
+Use the words people search for in the repo name and description, add focused
+topics, phrase FAQ headings as real questions, and set a social preview. See
+[`discovery-contract.md`](skills/open-source-launch/references/discovery-contract.md).
+
+### Does it publish anything without asking?
+
+Flipping visibility is covered by "make it public" unless you ask to review
+first. Social posts, awesome-list submissions, package releases and history
+rewrites are drafted only.
+
+### Does it work for apps that only run on macOS?
+
+Yes. It doesn't pretend otherwise: platform requirements go on the first
+screen of the README.
+
+## Uninstall
+
+```bash
+npx skills remove open-source-launch
+```
+
+Or delete the `open-source-launch` folder from your skills directory.
 
 ## Development
 
 ```bash
 python3 -m unittest discover -s skills/open-source-launch/tests -v
 python3 -m compileall -q skills/open-source-launch
+python3 skills/open-source-launch/scripts/audit_open_source.py . --strict
 ```
 
-Before a release, also run the auditor with `--run-gitleaks --strict`, validate
-the exact installation route from a temporary Codex home, and read back the
-live repository/release state.
-
-## Reference contracts
-
-- [Readiness and publication gates](skills/open-source-launch/references/readiness-contract.md)
-- [Stranger-first portability](skills/open-source-launch/references/portability-contract.md)
-- [Conversion README](skills/open-source-launch/references/readme-contract.md)
-- [GitHub discovery, SEO, and GEO](skills/open-source-launch/references/discovery-contract.md)
-- [Repository Pulse](skills/open-source-launch/references/repository-pulse.md)
-- [Open-source adoption](skills/open-source-launch/references/adoption-contract.md)
-
-## Support and bug reports
-
-For usage questions or reproducible non-sensitive problems, use
-[GitHub Issues](https://github.com/risingjerry/open-source-launch/issues/new/choose)
-with a synthetic example. Use private vulnerability reporting for anything
-that could expose a credential, private repository, personal data, or exploit.
+See [CONTRIBUTING.md](CONTRIBUTING.md). Report vulnerabilities through
+[private vulnerability reporting](https://github.com/risingjerry/open-source-launch/security/advisories/new),
+not a public issue. MIT licensed.
 
 ## Repository activity
 
 [![Repository Pulse for risingjerry/open-source-launch](https://raw.githubusercontent.com/risingjerry/open-source-launch/metrics/repository-metrics.svg)](https://github.com/risingjerry/open-source-launch)
 
-## Contributing, security, and license
+---
 
-- Read [CONTRIBUTING.md](CONTRIBUTING.md) before opening a pull request.
-- Report vulnerabilities through [GitHub private vulnerability reporting](https://github.com/risingjerry/open-source-launch/security/advisories/new), not a public issue.
-- Open-source under the [MIT License](LICENSE).
+If it helped you ship, a ⭐ helps others find it.
+
+[![Star History Chart](https://api.star-history.com/svg?repos=risingjerry/open-source-launch&type=Date)](https://star-history.com/#risingjerry/open-source-launch&Date)

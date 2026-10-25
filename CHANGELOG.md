@@ -3,6 +3,25 @@
 All notable changes are documented here. This project follows semantic
 versioning for tagged releases.
 
+## [0.2.0] - 2026-10-25
+
+### Changed
+
+- Rewrote the workflow around three outcomes: it runs anywhere, any agent can
+  pick it up, people can find it. Works with Claude Code, Codex and other
+  `SKILL.md`-compatible agents.
+- Merged the readiness and README contracts into `SKILL.md`; it uses an
+  installed README-writing Skill when one is available.
+
+### Added
+
+- `agent-ready.md`: how to ship `AGENTS.md`, `CLAUDE.md` and a bundled Skill.
+- `social_preview.py`: 1280×640 painterly social preview renderer that keeps
+  the lockup inside the square chat apps crop to.
+- `owner-defaults.example.md`: a template for personal launch defaults.
+- Auditor checks for `AGENTS.md` and `CLAUDE.md`.
+- Root `AGENTS.md` and `CLAUDE.md` for this repo.
+
 ## [0.1.2] - 2026-08-11
 
 ### Changed
@@ -32,6 +51,7 @@ versioning for tagged releases.
 - Token-safe Repository Pulse installer and white-background SVG renderer.
 - English and Simplified Chinese repository documentation.
 
+[0.2.0]: https://github.com/risingjerry/open-source-launch/compare/v0.1.2...v0.2.0
 [0.1.2]: https://github.com/risingjerry/open-source-launch/compare/v0.1.1...v0.1.2
 [0.1.1]: https://github.com/risingjerry/open-source-launch/compare/v0.1.0...v0.1.1
 [0.1.0]: https://github.com/risingjerry/open-source-launch/releases/tag/v0.1.0
