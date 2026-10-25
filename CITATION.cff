@@ -3,11 +3,11 @@ message: "If Open Source Launch supports your release workflow, cite this reposi
 title: "Open Source Launch"
 type: software
 authors:
-  - name: "JNHFlow21"
+  - name: "risingjerry"
 version: 0.1.1
 date-released: 2026-08-11
-url: "https://github.com/JNHFlow21/open-source-launch"
-repository-code: "https://github.com/JNHFlow21/open-source-launch"
+url: "https://github.com/risingjerry/open-source-launch"
+repository-code: "https://github.com/risingjerry/open-source-launch"
 license: MIT
 abstract: >-
   A Codex Skill that turns local or private projects into portable,

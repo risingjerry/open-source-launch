@@ -7,7 +7,7 @@ Security fixes are provided for the latest tagged release and the current
 
 ## Report a vulnerability privately
 
-Use [GitHub private vulnerability reporting](https://github.com/JNHFlow21/open-source-launch/security/advisories/new).
+Use [GitHub private vulnerability reporting](https://github.com/risingjerry/open-source-launch/security/advisories/new).
 Do not include credentials, private repository content, personal data, or an
 unpatched exploit in a public issue.
 

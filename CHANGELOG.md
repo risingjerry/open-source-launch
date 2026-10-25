@@ -32,6 +32,6 @@ versioning for tagged releases.
 - Token-safe Repository Pulse installer and white-background SVG renderer.
 - English and Simplified Chinese repository documentation.
 
-[0.1.2]: https://github.com/JNHFlow21/open-source-launch/compare/v0.1.1...v0.1.2
-[0.1.1]: https://github.com/JNHFlow21/open-source-launch/compare/v0.1.0...v0.1.1
-[0.1.0]: https://github.com/JNHFlow21/open-source-launch/releases/tag/v0.1.0
+[0.1.2]: https://github.com/risingjerry/open-source-launch/compare/v0.1.1...v0.1.2
+[0.1.1]: https://github.com/risingjerry/open-source-launch/compare/v0.1.0...v0.1.1
+[0.1.0]: https://github.com/risingjerry/open-source-launch/releases/tag/v0.1.0
