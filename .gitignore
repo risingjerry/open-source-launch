@@ -7,3 +7,6 @@ build/
 .env
 .env.*
 !.env.example
+
+# personal launch defaults stay private
+skills/open-source-launch/references/owner-defaults.md

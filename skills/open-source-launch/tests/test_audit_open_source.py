@@ -58,6 +58,11 @@ class OpenSourceAuditTests(unittest.TestCase):
             (root / ".gitignore").write_text(".env\n", encoding="utf-8")
             (root / "SECURITY.md").write_text("Report privately through GitHub.\n", encoding="utf-8")
             (root / "CONTRIBUTING.md").write_text("Run tests before a PR.\n", encoding="utf-8")
+            (root / "AGENTS.md").write_text("Run `python3 demo.py`.\n", encoding="utf-8")
+            (root / "CLAUDE.md").write_text("@AGENTS.md\n", encoding="utf-8")
+            skill = root / "skills" / "demo"
+            skill.mkdir(parents=True)
+            (skill / "SKILL.md").write_text("---\nname: demo\ndescription: Use demo.\n---\n\n# Demo\n", encoding="utf-8")
             workflow = root / ".github" / "workflows"
             workflow.mkdir(parents=True)
             (workflow / "test.yml").write_text("name: test\n", encoding="utf-8")
@@ -73,6 +78,22 @@ class OpenSourceAuditTests(unittest.TestCase):
             self.assertEqual(report["status"], "static-audit-clean")
             self.assertEqual(report["summary"]["errors"], 0)
             self.assertEqual(report["summary"]["warnings"], 0)
+
+    def test_agent_ready_gaps_are_reported(self) -> None:
+        with tempfile.TemporaryDirectory() as temporary:
+            root = Path(temporary)
+            init_repo(root)
+            (root / "README.md").write_text("# Demo\n", encoding="utf-8")
+            skill = root / "skills" / "broken"
+            skill.mkdir(parents=True)
+            (skill / "SKILL.md").write_text("# no frontmatter\n", encoding="utf-8")
+
+            codes = {finding["code"] for finding in MODULE.audit(root)["findings"]}
+
+            self.assertIn("missing-agents-md", codes)
+            self.assertIn("missing-claude-md", codes)
+            self.assertIn("invalid-skill-frontmatter", codes)
+            self.assertNotIn("missing-bundled-skill", codes)
 
     def test_external_symlink_is_a_portability_error(self) -> None:
         with tempfile.TemporaryDirectory() as temporary:

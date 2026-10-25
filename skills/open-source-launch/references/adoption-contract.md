@@ -1,76 +1,55 @@
-# Open-source adoption contract
+# Launch and adoption
 
-## First principles
-
-Publication creates availability, not adoption. Optimize the complete path:
+Availability is not adoption. The path that matters:
 
 ```text
-qualified discovery -> trusted repository visit -> verified first success
--> repeat use -> useful feedback/contribution -> improved release
+found -> trusted the page -> installed -> first result -> starred/shared -> came back
 ```
 
-More impressions cannot repair a broken install path. Fix the earliest measured
-drop-off before adding more channels.
+Fix the earliest broken step before adding more channels.
 
-## Launch package
+## Launch kit (draft, don't post without a go-ahead)
 
-Prepare, but do not post without explicit authorization:
+- One-sentence pitch: who, what problem, what outcome.
+- The demo GIF/video from the README.
+- The install command and the link.
+- One technical angle for builders (how it works, what was hard).
+- Honest limits.
 
-- one plain-language launch statement: user, problem, outcome, maturity;
-- one short demo or exact input/result pair from the released revision;
-- canonical install command and supported environments;
-- one deeper technical explanation for evaluators;
-- limitations, privacy/security boundary, and feedback route;
-- channel-specific drafts that link to the same canonical evidence rather than
-  duplicating incompatible claims.
+Write one version per channel in that channel's native style; same facts,
+different shape.
 
-Do not manufacture stars, testimonials, users, benchmarks, comparisons, or
-community activity. Do not bulk-post identical copy into unrelated communities.
+## Channels that work for developer tools
 
-## Distribution choices
-
-Choose channels from user fit, not a generic launch checklist:
-
-- ecosystem package registry and integration catalogs for active intent;
-- GitHub topics, related examples, and dependency metadata for developer
-  discovery;
-- maintainers' existing communities for contextual feedback;
-- technical articles, reproducible demos, and troubleshooting pages for durable
-  search/answer-engine evidence;
-- release notes and upgrade guidance for retained users;
-- templates, sample apps, and integrations that shorten time to first value.
-
-Every channel draft should have one audience, one user job, one proof item, and
-one next action. Track authorization and posting state separately from drafting.
-
-## Measurement ledger
-
-Record source, window, and limitations for each metric:
-
-| Funnel stage | Useful signals | Common false conclusion |
+| Channel | Fit | Notes |
 | --- | --- | --- |
-| Discovery | qualified referrers, docs queries, mentions | raw impressions equal demand |
-| Evaluation | README/docs visits, release views | badge/visitor loads equal people |
-| First success | install completion, example result, first-use issues | clone/download equals successful use |
-| Retention | updates, repeat activity, downstream dependents | stars equal active users |
-| Contribution | reproducible issues, PRs, maintainers | issue volume alone equals health |
+| X / Twitter | AI and agent tools | demo GIF + one concrete claim + link; tag the ecosystem account only if relevant |
+| Hacker News "Show HN" | dev tools with a real technical story | plain title, maintainer answers comments |
+| Reddit | niche subreddits (r/ClaudeAI, r/LocalLLaMA, r/Telegram, r/commandline…) | read each sub's self-promotion rules |
+| Product Hunt | polished, visual products | needs a launch day plan |
+| V2EX / 即刻 / 少数派 / 公众号 | Chinese users | write in Chinese, explain the 国内 use case |
+| Awesome lists | durable discovery | follow each list's rules exactly |
+| Ecosystem catalogs | skills/MCP/plugin directories | e.g. skills catalogs, MCP registries, agent plugin marketplaces |
 
-GitHub Traffic is a rolling owner window; label it accordingly. Prefer
-privacy-preserving aggregate metrics. Do not add invasive telemetry merely to
-decorate a launch report.
+## Awesome lists and directories
 
-## Feedback loop
+For each candidate list record: URL, category, submission method (PR, issue
+form, web form), requirements (repo age, stars, format), and the earliest
+eligible date. Many lists forbid AI-made or CLI submissions — prepare the
+exact text and let the human submit. Never submit to more than the rules
+allow.
 
-At each release or scheduled refresh:
+## Keep momentum
 
-1. read live repository/package/docs state;
-2. identify the earliest evidence-backed funnel failure;
-3. fix product, packaging, example, or documentation at that stage;
-4. rerun the clean install and first-success contract;
-5. synchronize README translations and discovery metadata;
-6. publish only authorized updates;
-7. observe a defined window before making outcome claims.
+- Answer issues fast in the first weeks; a responsive maintainer is a
+  star magnet.
+- Ship small, real improvements and tag releases; GitHub's trending and
+  many lists weigh recent activity.
+- Turn repeated questions into README FAQ entries.
+- Link related repos to each other (a "family" of tools cross-promotes).
 
-Report `observed`, `inferred`, and `missing_evidence` separately. Repository
-availability, indexing eligibility, retrieval, citation, installation, and
-retention are different states.
+## Measure honestly
+
+Stars, forks, GitHub Traffic (rolling 14-day, owner-only), clones, release
+downloads, referrers, issues opened by real users. Record the window. Stars
+are a proxy for interest, not proof of use.

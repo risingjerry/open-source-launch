@@ -1,108 +1,82 @@
-# GitHub discovery, SEO, and GEO contract
+# Discovery: SEO, GEO, AEO
 
-Snapshot: 2026-08-11.
+Three audiences read the same repo:
 
-## First principles
+- **Search engines (SEO)** index the GitHub page — title, description, README
+  headings and text.
+- **GitHub search and Explore** rank by name, description, topics, README,
+  stars, and recent activity.
+- **AI answer engines (GEO/AEO)** — ChatGPT, Claude, Perplexity, Google AI
+  Overviews — retrieve pages that answer a question directly and cite them.
 
-Discovery is a chain:
+You win all three with the same move: state plainly what the project is, for
+whom, and what problem it solves, in the words users actually use.
 
-```text
-user intent -> eligible/indexable source -> understandable evidence
--> retrieved result -> trusted click/install -> first success -> retention
-```
+## Start with a query map
 
-SEO helps search systems understand and surface useful content. “GEO” is used
-here as shorthand for making verified project facts easy for answer engines to
-retrieve, attribute, and cite. Neither has a magic GitHub switch.
+Before writing, list 10–20 real queries in every language your users speak:
 
-## Intent map
+| Intent | Example queries |
+| --- | --- |
+| Category | "telegram cli", "headless video editor cli" |
+| Task | "create telegram forum topics from command line" |
+| Agent use | "let claude code control telegram", "AI agent edit video" |
+| Comparison | "telethon vs tdlib cli", "剪映 自动化 工具" |
+| Trust | "is it safe", "will my account get banned" |
+| Failure | exact error messages users hit |
 
-Create a small map before rewriting:
+Then make sure each query has a place in the repo that answers it.
 
-| User job | Natural query variants | Best evidence surface | First action |
-| --- | --- | --- | --- |
-| What problem does it solve? | category + task + platform | README first paragraph | inspect proof |
-| Can I run it? | install + OS/runtime | Quick start/release | copy install |
-| Is it safe/private? | data + permissions + telemetry | trust/security docs | inspect boundary |
-| Does it fit my stack? | integration + protocol + version | compatibility/docs | run example |
-| How do I fix failure X? | exact error + product name | troubleshooting/issue | recover |
+## Repository metadata
 
-Use the language naturally. Google explicitly discourages keyword stuffing and
-does not use the meta-keywords tag.
+- **Name**: what people would type — the slug is weighted heavily by GitHub
+  search, Google, and answer engines. Include the product and the category
+  word (`telegram-agent-cli` beats `telegram-native`). Avoid clever or internal
+  names nobody searches.
+- **Description** (~150 chars visible): category + job + platform + the
+  agent angle. Example: "Telegram CLI for AI agents (Claude Code, Codex):
+  manage groups, channels, topics, members and bots via MTProto — JSON output."
+- **Topics**: up to 20 allowed, use ~12–15 high-signal ones: category
+  (`cli`, `telegram`), ecosystem (`claude-code`, `codex`, `ai-agents`,
+  `agent-skills`, `mcp` if true), language (`python`), platform (`macos`),
+  task words (`video-editing`, `automation`).
+- **Homepage**: docs site or the README anchor if no site.
+- **Social preview**: 1280×640, product name + one-line outcome + visual
+  proof; it's what shows on X, Slack, Discord, WeChat link cards.
 
-## GitHub surfaces
+## README signals
 
-### Repository metadata
+- H1 = product name; the first sentence defines it in plain words with the
+  category term ("X is a command-line tool that…"). Answer engines quote this.
+- Headings that match queries ("Install", "Use with Claude Code",
+  "How it works", "Limitations").
+- **FAQ phrased as real questions** — each heading is a query, each answer
+  starts with a direct one-sentence answer, then detail. This is the single
+  highest-leverage GEO move.
+- Concrete examples with real output; numbers with conditions ("38 commands",
+  "30s 1080p renders in ~3.5s on M-series").
+- Alt text on images; relative links that work on GitHub.
+- A short "Alternatives / how it compares" section when users will ask — honest,
+  sourced, no trash-talk.
+- Bilingual README doubles reach (English canonical, `README.zh-CN.md`).
 
-- **Name:** stable, memorable, and not deceptively generic.
-- **Description:** one concise sentence with category, primary job, and relevant
-  platform—not a slogan wall.
-- **Homepage:** canonical docs/product URL when one exists.
-- **Topics:** focused purpose, subject, ecosystem, platform, and language terms.
-  GitHub topic names are public, lowercase/hyphenated, at most 50 characters,
-  and limited to 20; use fewer high-signal topics.
-- **Social preview:** truthful product image, preferably 1280×640 and under
-  1 MB, readable on light/dark sharing surfaces.
+## Off-GitHub surfaces (where it pays)
 
-### README and docs
+- Package registry listing (PyPI/npm/Homebrew) with the same description.
+- A blog post / 公众号 article / X thread explaining the problem and solution —
+  long-form pages are what answer engines cite most.
+- Directory and awesome-list entries (see adoption-contract.md).
+- `llms.txt` only if there's a real docs site.
 
-- Canonical product name and plain definition in the title/first paragraph.
-- Descriptive headings, concrete examples, expected outputs, compatibility,
-  limitations, and exact error text where useful.
-- Descriptive alt text near relevant explanatory text.
-- Stable links to releases, packages, docs, security, support, and examples.
-- FAQ only for real adoption questions; do not manufacture search bait.
-- Source-backed comparisons and benchmarks with method, date, conditions, and
-  reproducible evidence.
+## Don'ts
 
-### Docs website, when justified
+Keyword stuffing, fake stars, fake testimonials, invented benchmarks,
+misleading comparisons, mass-posting identical copy. They cost more trust than
+they earn traffic.
 
-Use a site when the repository needs durable guides, reference pages, or
-landing pages beyond a README. Then verify canonical URLs, crawlability,
-sitemap, robots, titles/descriptions, structured data where applicable, and
-Search Console. Do not add these artifacts to a repository that has no website
-and call the work complete.
+## Verify
 
-`llms.txt` is optional and not a success signal. Add it only to a real docs site
-when there is a maintained canonical document map and a verified consumer or
-product need. Eligibility is not retrieval, citation, recommendation, or
-conversion.
-
-## Evidence levels
-
-Track each finding as:
-
-- `observed` — directly read from GitHub, Search Console, analytics, or a live
-  answer-engine result;
-- `inferred` — plausible from content/structure but not observed downstream;
-- `missing_evidence` — requires indexing, query, citation, or conversion data.
-
-Do not claim SEO/GEO success because metadata exists, CI passed, a sitemap was
-submitted, or an AI system cited the project once.
-
-## Measurement
-
-Use metrics that correspond to the chain:
-
-- repository impressions/referrers when available;
-- release/package downloads and clone windows;
-- quick-start completion failures and support issues;
-- documentation queries/clicks for a docs site;
-- qualified citations/mentions with captured prompt, model, date, and source;
-- repeat users, retained contributors, and downstream projects.
-
-GitHub Traffic is an owner-only rolling window, not lifetime analytics. Public
-visitor badges may include bots and repeat loads.
-
-## Primary sources
-
-- GitHub README guidance:
-  https://docs.github.com/en/repositories/managing-your-repositorys-settings-and-features/customizing-your-repository/about-readmes
-- GitHub topics:
-  https://docs.github.com/en/repositories/managing-your-repositorys-settings-and-features/customizing-your-repository/classifying-your-repository-with-topics
-- GitHub social preview:
-  https://docs.github.com/en/repositories/managing-your-repositorys-settings-and-features/customizing-your-repository/customizing-your-repositorys-social-media-preview
-- GitHub community health:
-  https://docs.github.com/en/communities/setting-up-your-project-for-healthy-contributions
-- Google SEO Starter Guide:
-  https://developers.google.com/search/docs/fundamentals/seo-starter-guide
+After publication: search the product name and 2–3 task queries on Google and
+GitHub after a few days; ask two or three answer engines a task query and
+note whether the repo appears. Record what was observed, with dates — don't
+claim ranking from metadata alone.

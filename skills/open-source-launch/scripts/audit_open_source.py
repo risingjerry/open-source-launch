@@ -332,6 +332,25 @@ def _repository_package_checks(root: Path, findings: list[Finding]) -> None:
         _add(findings, "quality", "warning", "missing-ci", "No GitHub Actions workflow was found; verify supported environments another auditable way or add CI.")
 
 
+SKILL_FRONTMATTER_RE = re.compile(r"\A---\s*\n(.*?)\n---", re.DOTALL)
+
+
+def _agent_ready_checks(root: Path, findings: list[Finding]) -> None:
+    if not (root / "AGENTS.md").is_file():
+        _add(findings, "agent-ready", "warning", "missing-agents-md", "Add a root AGENTS.md telling coding agents how to install, test, and safely call the project.")
+    if not (root / "CLAUDE.md").is_file():
+        _add(findings, "agent-ready", "warning", "missing-claude-md", "Add a CLAUDE.md (e.g. a single `@AGENTS.md` line) so Claude Code loads the same agent guide.")
+    skills = sorted((root / "skills").glob("*/SKILL.md"))
+    if not skills:
+        _add(findings, "agent-ready", "warning", "missing-bundled-skill", "Bundle an Agent Skill at skills/<name>/SKILL.md so other agents can learn to use the tool outside the repo.")
+    for skill in skills:
+        text = skill.read_text(encoding="utf-8", errors="replace")
+        match = SKILL_FRONTMATTER_RE.match(text)
+        header = match.group(1) if match else ""
+        if not (re.search(r"(?m)^name:\s*\S", header) and re.search(r"(?m)^description:\s*\S", header)):
+            _add(findings, "agent-ready", "error", "invalid-skill-frontmatter", "SKILL.md needs YAML frontmatter with non-empty name and description.", _relative(root, skill))
+
+
 def _runtime_checks(root: Path, findings: list[Finding]) -> None:
     pyproject = root / "pyproject.toml"
     python_markers = any((root / name).exists() for name in ("pyproject.toml", "setup.py", "setup.cfg", "requirements.txt"))
@@ -417,6 +436,7 @@ def audit(root_value: str | Path, *, run_gitleaks: bool = False) -> dict[str, ob
     _git_state_checks(root, findings, used_git)
     _repository_package_checks(root, findings)
     _readme_checks(root, findings)
+    _agent_ready_checks(root, findings)
     _runtime_checks(root, findings)
     for path in paths:
         _scan_file(root, path, findings)
