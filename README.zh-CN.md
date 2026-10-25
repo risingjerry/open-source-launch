@@ -6,8 +6,8 @@
 
 **把本地或私有项目转化为可移植、经过隐私审查、容易被发现并完成验证的 GitHub 开源版本。**
 
-[![测试](https://github.com/JNHFlow21/open-source-launch/actions/workflows/test.yml/badge.svg)](https://github.com/JNHFlow21/open-source-launch/actions/workflows/test.yml)
-[![版本](https://img.shields.io/github/v/release/JNHFlow21/open-source-launch?display_name=tag)](https://github.com/JNHFlow21/open-source-launch/releases)
+[![测试](https://github.com/risingjerry/open-source-launch/actions/workflows/test.yml/badge.svg)](https://github.com/risingjerry/open-source-launch/actions/workflows/test.yml)
+[![版本](https://img.shields.io/github/v/release/risingjerry/open-source-launch?display_name=tag)](https://github.com/risingjerry/open-source-launch/releases)
 [![许可证：MIT](https://img.shields.io/badge/License-MIT-18a558.svg)](LICENSE)
 
 ![Open Source Launch 概念流程：本地项目依次经过隐私审查、可移植打包和发布门禁，最终成为公开代码仓库](docs/assets/social-preview.png)
@@ -40,7 +40,7 @@ Open Source Launch 为 Codex 提供一套可重复执行的发布契约：
 ### 1. 安装到当前项目
 
 ```bash
-DISABLE_TELEMETRY=1 npx skills add JNHFlow21/open-source-launch \
+DISABLE_TELEMETRY=1 npx skills add risingjerry/open-source-launch \
   --skill open-source-launch \
   --agent codex \
   --yes
@@ -54,7 +54,7 @@ DISABLE_TELEMETRY=1 npx skills add JNHFlow21/open-source-launch \
 
 ```text
 Use $skill-installer to install open-source-launch from
-https://github.com/JNHFlow21/open-source-launch/tree/main/skills/open-source-launch
+https://github.com/risingjerry/open-source-launch/tree/main/skills/open-source-launch
 ```
 
 通过任一路径安装后，都要开启一个新的 Codex 轮次，让系统重新发现 Skill。
@@ -220,16 +220,16 @@ python3 -m compileall -q skills/open-source-launch
 ## 支持与问题反馈
 
 使用问题或可复现的非敏感故障，请通过
-[GitHub Issues](https://github.com/JNHFlow21/open-source-launch/issues/new/choose)
+[GitHub Issues](https://github.com/risingjerry/open-source-launch/issues/new/choose)
 提交，并使用合成示例。任何可能暴露凭据、私有仓库、个人数据或漏洞利用方式的
 内容，都必须使用私密漏洞报告。
 
 ## 仓库活动
 
-[![JNHFlow21/open-source-launch Repository Pulse](https://raw.githubusercontent.com/JNHFlow21/open-source-launch/metrics/repository-metrics.svg)](https://github.com/JNHFlow21/open-source-launch)
+[![risingjerry/open-source-launch Repository Pulse](https://raw.githubusercontent.com/risingjerry/open-source-launch/metrics/repository-metrics.svg)](https://github.com/risingjerry/open-source-launch)
 
 ## 贡献、安全与许可证
 
 - 提交 PR 前请阅读 [CONTRIBUTING.md](CONTRIBUTING.md)。
-- 请通过 [GitHub 私密漏洞报告](https://github.com/JNHFlow21/open-source-launch/security/advisories/new) 报告漏洞，不要公开创建 Issue。
+- 请通过 [GitHub 私密漏洞报告](https://github.com/risingjerry/open-source-launch/security/advisories/new) 报告漏洞，不要公开创建 Issue。
 - 项目采用 [MIT License](LICENSE) 开源。

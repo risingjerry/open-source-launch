@@ -6,8 +6,8 @@
 
 **Turn a local or private project into a portable, privacy-reviewed, discoverable, and verified public GitHub release.**
 
-[![Tests](https://github.com/JNHFlow21/open-source-launch/actions/workflows/test.yml/badge.svg)](https://github.com/JNHFlow21/open-source-launch/actions/workflows/test.yml)
-[![Release](https://img.shields.io/github/v/release/JNHFlow21/open-source-launch?display_name=tag)](https://github.com/JNHFlow21/open-source-launch/releases)
+[![Tests](https://github.com/risingjerry/open-source-launch/actions/workflows/test.yml/badge.svg)](https://github.com/risingjerry/open-source-launch/actions/workflows/test.yml)
+[![Release](https://img.shields.io/github/v/release/risingjerry/open-source-launch?display_name=tag)](https://github.com/risingjerry/open-source-launch/releases)
 [![License: MIT](https://img.shields.io/badge/License-MIT-18a558.svg)](LICENSE)
 
 ![Conceptual Open Source Launch workflow: a local project passes through privacy review, portable packaging, and a verification gate before becoming a public repository](docs/assets/social-preview.png)
@@ -42,7 +42,7 @@ merge, change visibility, or place credentials in documentation.
 ### 1. Install project-locally
 
 ```bash
-DISABLE_TELEMETRY=1 npx skills add JNHFlow21/open-source-launch \
+DISABLE_TELEMETRY=1 npx skills add risingjerry/open-source-launch \
   --skill open-source-launch \
   --agent codex \
   --yes
@@ -57,7 +57,7 @@ Alternatively, ask Codex's built-in Skill Installer:
 
 ```text
 Use $skill-installer to install open-source-launch from
-https://github.com/JNHFlow21/open-source-launch/tree/main/skills/open-source-launch
+https://github.com/risingjerry/open-source-launch/tree/main/skills/open-source-launch
 ```
 
 Start a new Codex turn after either route so the Skill can be discovered.
@@ -231,16 +231,16 @@ live repository/release state.
 ## Support and bug reports
 
 For usage questions or reproducible non-sensitive problems, use
-[GitHub Issues](https://github.com/JNHFlow21/open-source-launch/issues/new/choose)
+[GitHub Issues](https://github.com/risingjerry/open-source-launch/issues/new/choose)
 with a synthetic example. Use private vulnerability reporting for anything
 that could expose a credential, private repository, personal data, or exploit.
 
 ## Repository activity
 
-[![Repository Pulse for JNHFlow21/open-source-launch](https://raw.githubusercontent.com/JNHFlow21/open-source-launch/metrics/repository-metrics.svg)](https://github.com/JNHFlow21/open-source-launch)
+[![Repository Pulse for risingjerry/open-source-launch](https://raw.githubusercontent.com/risingjerry/open-source-launch/metrics/repository-metrics.svg)](https://github.com/risingjerry/open-source-launch)
 
 ## Contributing, security, and license
 
 - Read [CONTRIBUTING.md](CONTRIBUTING.md) before opening a pull request.
-- Report vulnerabilities through [GitHub private vulnerability reporting](https://github.com/JNHFlow21/open-source-launch/security/advisories/new), not a public issue.
+- Report vulnerabilities through [GitHub private vulnerability reporting](https://github.com/risingjerry/open-source-launch/security/advisories/new), not a public issue.
 - Open-source under the [MIT License](LICENSE).

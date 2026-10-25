@@ -17,7 +17,7 @@ Requirements: Git and Python 3.10 or newer. The runtime scripts use only the
 Python standard library.
 
 ```bash
-git clone https://github.com/JNHFlow21/open-source-launch.git
+git clone https://github.com/risingjerry/open-source-launch.git
 cd open-source-launch
 python3 -m unittest discover -s skills/open-source-launch/tests -v
 python3 -m compileall -q skills/open-source-launch
